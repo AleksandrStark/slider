@@ -1,0 +1,135 @@
+	<div class='my-slider' id='my-slider1'> 
+
+		<button class='show-prev-btn'> < </button>
+
+		<img class = 'slide-img' src=''>
+
+		<button class='show-next-btn'> > </button>
+
+	</div>
+
+	<div class='my-slider' id='my-slider2'> 
+
+		<button class='show-prev-btn'> < </button>
+
+		<img class = 'slide-img slide-img' src=''>
+
+		<button class='show-next-btn'> > </button>
+
+	</div>
+
+
+
+
+
+<script>
+
+		function Slider() {
+
+		
+		this.imagesUrls= [];
+		this.currentImageIndex= 0;
+		this.showPrevBtn = null; // document.querySelector('.show-prev-btn'),
+		this.showNextBtn = null; // document.querySelector('.show-next-btn'),
+		this.slideImage = null; // document.querySelector('.slide-img'),
+
+
+
+
+		this.start = function(elId) {
+				//избавляемся от ошибки приписывания this к кнопке
+		var that=this;
+
+
+			elSelector='#'+elId;
+			var el = document.querySelector(elSelector);
+
+			this.showPrevBtn = el.querySelector('.show-prev-btn');
+			this.showNextBtn =  el.querySelector('.show-next-btn');
+			this.slideImage = el.querySelector('.slide-img');
+
+
+				//subscribe to events
+		this.showPrevBtn.addEventListener('click', function(e) {
+			that.onShowPrevBtnClick(e);
+		});
+		this.showNextBtn.addEventListener('click', function(e) {
+			that.onShowNextBtnClick(e);
+		});
+
+
+		// create images array
+		this.imagesUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1NPre5798WFIjmM3nLLrwjR0bThK4tt-0cA&usqp=CAU');
+		this.imagesUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS_OeJW9CC4G8mAqgNj0obpNFFvTptiv90Wg&usqp=CAU');
+		this.imagesUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsSlL9R9NsoV3Hg2rx7wi5sv6jSNlyC9MqQQ&usqp=CAU');
+		this.imagesUrls.push('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWHCXuyEksO6t7n94Qr4YxDFpdnip6M7Vb1w&usqp=CAU');
+
+				
+		
+		this.slideImage.src = this.imagesUrls[this.currentImageIndex];
+		this.showPrevBtn.disabled = true;
+		
+		};
+
+		
+
+		this.onShowPrevBtnClick = function(e) {
+
+			this.currentImageIndex--;
+			this.slideImage.src=this.imagesUrls[this.currentImageIndex];
+			this.showNextBtn.disabled=false;
+
+			//disable prev button if need
+			if (this.currentImageIndex===0) {
+				this.showPrevBtn.disabled=true;
+			}
+		};
+
+
+		this.onShowNextBtnClick = function(e) {
+
+			this.currentImageIndex++;
+			this.slideImage.src=this.imagesUrls[this.currentImageIndex];
+			this.showPrevBtn.disabled=false;
+
+			//disable prev button if need
+			if (this.currentImageIndex===(this.imagesUrls.length-1)) {
+				this.showNextBtn.disabled=true;
+			}
+		};
+
+		
+}
+
+
+		
+
+	var slider1 = new Slider();
+
+		//var cont1=document.querySelector('#my-slider1');
+		slider1.start('my-slider1');
+
+
+	var slider2 = new Slider();
+
+		//var cont2=document.querySelector('#my-slider2');
+		slider2.start('my-slider2');
+
+
+  </script>
+
+	
+	<style> 
+		
+		.my-slider {
+			width: 50%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.my-slider .slide-img {
+			
+			max-width: 80%;
+		}
+
+	</style>
